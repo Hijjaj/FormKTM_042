@@ -29,8 +29,8 @@ public class myController {
    public String getData(@RequestParam("nama") String text,
            @RequestParam("gambar") MultipartFile gambar,
            @RequestParam("nim") String nim,
-           @RequestParam("jurusan") String jurusan,
-           Model kurir
+           @RequestParam("jurusan") String jurusan
+           
            //@RequestParam("tanggal") @DateTimeFormat(pattern="yyyy-MM-dd") Date date
    ) throws IOException{
        
@@ -39,15 +39,12 @@ public class myController {
        text = textProcess(text);*/
        
        String blob = Base64.encodeBase64String(gambar.getBytes());
-       kurir.addAttribute("paket1",text);
-       kurir.addAttribute("paket2",nim);
-       kurir.addAttribute("paket3",jurusan);
-       kurir.addAttribute("paket4",blob);
        
-       return "viewpage";/*text + nim + jurusan + "<br><img src='data:image/jpeg;base64,"+blob+" ' />"+tanggalku;*/
+       
+       return "<h1>KTM</h1><hr><br><br><body><p>Nama ="+text+"</p><br><br><p>NIM ="+nim+"</p><br><br><p>Jurusan ="+jurusan+"</p><br><br><img src='data:image/jpeg;base64,"+blob+" ' /></body>"/*+tanggalku;*/;
    }
    
-   private String textProcess(String nama){
+   /*private String textProcess(String nama){
        String result ="";
        if (nama.equals("alo")) {result = nama + "too";}
        else if (nama.equals("alo2")) {result = nama + "too doo";}
@@ -55,6 +52,6 @@ public class myController {
        else {result = nama + " hola ";}
        return result;
         
-   }
+   }*/
     
 }
