@@ -10,6 +10,7 @@ import java.util.Date;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,15 +28,23 @@ public class myController {
    @ResponseBody
    public String getData(@RequestParam("nama") String text,
            @RequestParam("gambar") MultipartFile gambar,
-           @RequestParam("tanggal") @DateTimeFormat(pattern="yyyy-MM-dd") Date date
+           @RequestParam("nim") String nim,
+           @RequestParam("jurusan") String jurusan,
+           Model kurir
+           //@RequestParam("tanggal") @DateTimeFormat(pattern="yyyy-MM-dd") Date date
    ) throws IOException{
        
-       SimpleDateFormat newTanggal = new SimpleDateFormat("EE-dd-MMM-yyyy");
+       /*SimpleDateFormat newTanggal = new SimpleDateFormat("EE-dd-MMM-yyyy");
        String tanggalku = newTanggal.format(date);
-       text = textProcess(text);
+       text = textProcess(text);*/
        
        String blob = Base64.encodeBase64String(gambar.getBytes());
-       return text + "<br><img src='data:image/jpeg;base64,"+blob+" ' />"+tanggalku;
+       kurir.addAttribute("paket1",text);
+       kurir.addAttribute("paket2",nim);
+       kurir.addAttribute("paket3",jurusan);
+       kurir.addAttribute("paket4",blob);
+       
+       return "viewpage";/*text + nim + jurusan + "<br><img src='data:image/jpeg;base64,"+blob+" ' />"+tanggalku;*/
    }
    
    private String textProcess(String nama){
